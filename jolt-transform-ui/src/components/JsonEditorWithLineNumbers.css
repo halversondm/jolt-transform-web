@@ -1,0 +1,52 @@
+.json-editor-container {
+  display: flex;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+  min-width: 0;
+  height: 24rem;
+}
+
+.json-editor-line-numbers {
+  background: #f3f4f6;
+  color: #9ca3af;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+  text-align: right;
+  user-select: none;
+  min-width: 2.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow: hidden;
+  border-right: 1px solid #e5e7eb;
+  height: 100%;
+}
+
+.json-editor-line-number {
+  height: 1.5rem;
+}
+
+.json-editor-textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background: transparent;
+  resize: none;
+  min-width: 0;
+  height: 100%;
+  color: #111827;
+}
+
+.json-editor-textarea:focus {
+  background: #fff;
+}
+
+.json-editor-textarea[readonly] {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+

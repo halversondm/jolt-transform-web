@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import JsonEditorWithLineNumbers from "./components/JsonEditorWithLineNumbers";
+import "./components/JsonEditorWithLineNumbers.css";
 
 function App() {
   const [input, setInput] = useState("");
@@ -77,23 +79,25 @@ function App() {
           {/* Input */}
           <div className="flex-1 flex flex-col min-w-0">
             <label className="mb-2 font-semibold" htmlFor="input">Input</label>
-            <textarea
+            <JsonEditorWithLineNumbers
               id="input"
-              className="border rounded p-2 h-96 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 text-base min-w-0"
               value={input}
               onChange={e => setInput(e.target.value)}
               onBlur={handleInputBlur}
+              className="h-96"
+              placeholder="Paste or type JSON input here..."
             />
           </div>
           {/* Spec */}
           <div className="flex-1 flex flex-col items-center min-w-0">
             <label className="mb-2 font-semibold self-start" htmlFor="spec">Spec</label>
-            <textarea
+            <JsonEditorWithLineNumbers
               id="spec"
-              className="border rounded p-2 h-96 resize-none w-full focus:outline-none focus:ring-2 focus:ring-blue-400 text-base min-w-0"
               value={spec}
               onChange={e => setSpec(e.target.value)}
               onBlur={handleSpecBlur}
+              className="h-96 w-full"
+              placeholder="Paste or type JOLT spec here..."
             />
             <button
               className="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
@@ -107,11 +111,12 @@ function App() {
           {/* Output */}
           <div className="flex-1 flex flex-col min-w-0">
             <label className="mb-2 font-semibold" htmlFor="output">Output</label>
-            <textarea
+            <JsonEditorWithLineNumbers
               id="output"
-              className="border rounded p-2 h-96 resize-none bg-gray-100 focus:outline-none text-base min-w-0"
               value={output}
               readOnly
+              className="h-96 bg-gray-100"
+              placeholder="Transformed output will appear here..."
             />
           </div>
         </div>

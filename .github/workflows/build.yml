@@ -1,0 +1,26 @@
+name: Docker Image CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: '22'
+      - name: Build Code
+        run: mvn -e --batch-mode clean install
+      - name: Build Docker images for all Dockerfiles
+        run: docker build . --tag "jolt-transform-app:latest"
