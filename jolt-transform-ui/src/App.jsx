@@ -2,6 +2,30 @@ import React, { useState } from "react";
 import JsonEditorWithLineNumbers from "./components/JsonEditorWithLineNumbers";
 import "./components/JsonEditorWithLineNumbers.css";
 
+// Reusable button for loading example files
+function LoadExampleButton({ label, files, onLoad, setError }) {
+  return (
+    <button
+      className="text-blue-600 underline hover:text-blue-800"
+      onClick={async () => {
+        setError("");
+        try {
+          const responses = await Promise.all(files.map(f => fetch(f)));
+          if (responses.some(res => !res.ok)) {
+            throw new Error("Failed to load files");
+          }
+          const texts = await Promise.all(responses.map(res => res.text()));
+          onLoad(...texts);
+        } catch {
+          setError("Failed to load input or spec file");
+        }
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
 function App() {
   const [input, setInput] = useState("");
   const [spec, setSpec] = useState("");
@@ -75,6 +99,7 @@ function App() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-7xl p-8 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold mb-8 text-center">JOLT Transformer</h1>
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input */}
           <div className="flex-1 flex flex-col min-w-0">
@@ -119,6 +144,18 @@ function App() {
               placeholder="Transformed output will appear here..."
             />
           </div>
+        </div>
+        {/* Links container */}
+        <div className="mt-8 flex flex-row justify-center gap-8">
+          <LoadExampleButton
+            label="Load Example Input & Spec"
+            files={["/input.jsonc", "/spec.jsonc"]}
+            setError={setError}
+            onLoad={(inputText, specText) => {
+              setInput(inputText);
+              setSpec(specText);
+            }}
+          />
         </div>
       </div>
     </div>
