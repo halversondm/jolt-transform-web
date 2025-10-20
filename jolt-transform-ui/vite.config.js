@@ -18,7 +18,7 @@ export default defineConfig({
         })
     ],
     build: {
-        outDir: resolve(__dirname, 'target/static'),
+        outDir: resolve(__dirname, 'target/classes/static'),
         emptyOutDir: true,
     },
     server: {
@@ -26,8 +26,18 @@ export default defineConfig({
             '/api/v1/jolt/transform': {
                 target: 'http://localhost:8081',
                 changeOrigin: true,
-                secure: false,
+                secure: false
             },
+            '/run': {
+                target: 'http://localhost:9300',
+                changeOrigin: true,
+                secure: false
+            },
+            '/apps': {
+                target: 'http://localhost:9300',
+                changeOrigin: true,
+                secure: false
+            }
         },
     },
 });

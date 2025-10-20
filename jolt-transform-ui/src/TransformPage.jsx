@@ -124,7 +124,7 @@ function TransformPage() {
       <div className="mt-8 flex flex-row justify-center gap-8">
         <LoadExampleButton
           label="Load Example Input & Spec"
-          files={["/input.jsonc", "/spec.jsonc"]}
+          files={["/input.json", "/spec.json"]}
           setError={setError}
           onLoad={(inputText, specText) => {
             setInput(inputText);
