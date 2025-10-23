@@ -8,19 +8,45 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ECR_REPOSITORY: halversondm/jolt-transform-web
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
       - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.4.1
         with:
           node-version: '22'
+
       - name: Build Code
         run: mvn -e --batch-mode clean install
-      - name: Build Docker images for all Dockerfiles
-        run: docker build . --tag "jolt-transform-app:latest"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Ensure ECR repository exists
+        run: |
+          aws ecr describe-repositories --repository-names "${{ env.ECR_REPOSITORY }}" || \
+            aws ecr create-repository --repository-name "${{ env.ECR_REPOSITORY }}"
+
+      - name: Build, tag and push Docker image to ECR
+        run: |
+          REGISTRY=${{ steps.login-ecr.outputs.registry }}
+          IMAGE_NAME="${REGISTRY}/${{ env.ECR_REPOSITORY }}:0.0.1-SNAPSHOT"
+          docker build -t "$IMAGE_NAME" .
+          docker push "$IMAGE_NAME"
