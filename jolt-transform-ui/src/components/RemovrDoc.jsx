@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShiftDoc.css";
 
-function RemovrDoc() {
+const RemovrDoc = () => {
     return (
         <div>
             <h1>Removr JOLT Transform Documentation</h1>

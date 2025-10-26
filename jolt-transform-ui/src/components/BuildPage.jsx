@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import JsonEditorWithLineNumbers from "./components/JsonEditorWithLineNumbers";
-import LoadExampleButton from "./components/LoadExampleButton";
-import "./components/JsonEditorWithLineNumbers.css";
+import JsonEditorWithLineNumbers from "./JsonEditorWithLineNumbers";
+import LoadExampleButton from "./LoadExampleButton";
+import "./JsonEditorWithLineNumbers.css";
 
-function BuildPage() {
+const BuildPage = () => {
     const [input, setInput] = useState("");
     const [spec, setSpec] = useState("");
     const [output, setOutput] = useState("");

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShiftDoc.css";
 
-function CardinalityDoc() {
+const CardinalityDoc = () => {
     return (
         <div>
             <h1>CardinalityTransform JOLT Transform Documentation</h1>

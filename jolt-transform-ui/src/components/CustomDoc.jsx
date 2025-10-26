@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShiftDoc.css";
 
-function CustomDoc() {
+const CustomDoc = () => {
 
     return (
         <div>

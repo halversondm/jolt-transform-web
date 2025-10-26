@@ -13,6 +13,10 @@ export default defineConfig({
                 {
                     src: 'src/json/**',
                     dest: ''
+                },
+                {
+                    src: 'public/images/**',
+                    dest: ''
                 }
             ]
         })
@@ -22,6 +26,8 @@ export default defineConfig({
         emptyOutDir: true,
     },
     server: {
+        port: 3000,
+        host: '0.0.0.0',
         proxy: {
             '/api/v1/jolt/transform': {
                 target: 'http://localhost:8081',

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShiftDoc.css";
 
-function SortDoc() {
+const SortDoc = () => {
 
     return (
         <div>

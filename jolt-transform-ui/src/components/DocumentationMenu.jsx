@@ -1,13 +1,7 @@
+import {Link, useLocation} from "react-router";
 import React from "react";
-import {Link, Route, Routes, useLocation} from "react-router";
-import ShiftDoc from "./components/ShiftDoc";
-import DefaultrDoc from "./components/DefaultrDoc";
-import RemovrDoc from "./components/RemovrDoc";
-import CardinalityDoc from "./components/CardinalityDoc";
-import SortDoc from "./components/SortDoc";
-import CustomDoc from "./components/CustomDoc";
 
-function DocumentationMenu() {
+const DocumentationMenu = () => {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
     return (
@@ -90,27 +84,4 @@ function DocumentationMenu() {
     );
 }
 
-function DocumentationPage() {
-    return (
-        <div className="w-full max-w-7xl p-8 bg-white rounded-lg shadow-lg mx-auto">
-            <h1 className="text-3xl font-bold mb-8 text-center">Documentation</h1>
-            <p>The official JOLT documentation can be found at: <a href="https://github.com/bazaarvoice/jolt" target="_blank">JOLT GitHub</a></p>
-            <br/>
-            <DocumentationMenu />
-            <Routes>
-                <Route path="/shift" element={<ShiftDoc />}/>
-                <Route path="/default" element={<DefaultrDoc />}/>
-                <Route path="/remove" element={<RemovrDoc/>}/>
-                <Route path="/cardinality" element={<CardinalityDoc/>}/>
-                <Route path="/sort" element={<SortDoc/>}/>
-                <Route path="/custom" element={<CustomDoc/>}/>
-                <Route
-                    index
-                    element={<div>Select a topic from the menu above.</div>}
-                />
-            </Routes>
-        </div>
-    );
-}
-
-export default DocumentationPage;
+export default DocumentationMenu;

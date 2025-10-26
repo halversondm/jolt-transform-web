@@ -1,7 +1,7 @@
 import React from "react";
 import "./ShiftDoc.css";
 
-function DefaultrDoc() {
+const DefaultrDoc = () => {
     return (
         <div>
             <h1>Defaultr JOLT Transform Documentation</h1>

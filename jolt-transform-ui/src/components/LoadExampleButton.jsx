@@ -1,6 +1,6 @@
 import React from "react";
 
-function LoadExampleButton({ label, files, onLoad, setError }) {
+const LoadExampleButton = ({ label, files, onLoad, setError }) => {
   return (
     <button
       className="text-blue-600 underline hover:text-blue-800"
