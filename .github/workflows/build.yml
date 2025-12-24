@@ -9,8 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04-arm
-    env:
-      ECR_REPOSITORY: halversondm/jolt-transform-web
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,7 +26,11 @@ jobs:
 
       - name: Build Code
         run: mvn -e --batch-mode clean install
-
+  deploy:
+    runs-on: ubuntu-24.04-arm
+    env:
+        ECR_REPOSITORY: halversondm/jolt-transform-web
+    steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
