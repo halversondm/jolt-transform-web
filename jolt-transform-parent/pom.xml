@@ -21,6 +21,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>1.1.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.halversondm</groupId>
                 <artifactId>jolt-transform-app</artifactId>
                 <version>0.0.1-SNAPSHOT</version>

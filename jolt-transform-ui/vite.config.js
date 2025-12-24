@@ -34,13 +34,8 @@ export default defineConfig({
                 changeOrigin: true,
                 secure: false
             },
-            '/run': {
-                target: 'http://localhost:9300',
-                changeOrigin: true,
-                secure: false
-            },
-            '/apps': {
-                target: 'http://localhost:9300',
+            '/api/v1/ai/generate': {
+                target: 'http://localhost:8081',
                 changeOrigin: true,
                 secure: false
             }
