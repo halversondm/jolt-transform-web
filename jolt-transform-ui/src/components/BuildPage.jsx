@@ -9,36 +9,14 @@ const BuildPage = () => {
     const [output, setOutput] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [sessionId, setSessionId] = useState(crypto.randomUUID());
-    const [userId, setUserId] = useState("default_user");
-    const APP_NAME = "jolt_agent";
-
-    useEffect(() => {
-        const getSession = async () => {
-            const url = window.location.origin + `/apps/${APP_NAME}/users/${userId}/sessions/${sessionId}`;
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    }
-                });
-                const result = await response.json();
-            } catch (error) {
-                console.error("Error creating session:", error);
-            }
-        }
-
-        getSession();
-    }, []);
 
     // Pretty-print JSON if valid, else return original
     const tryFormatJson = (value) => {
+        console.log(value);
         try {
             return JSON.stringify(JSON.parse(value), null, 2);
         } catch {
-            return value;
+            return JSON.stringify(value, null, 2);
         }
     };
 
@@ -69,22 +47,12 @@ const BuildPage = () => {
             setLoading(false);
             return;
         }
-        const text = {input_data: inputObj, output_data: outputObj};
         const body = {
-            appName: APP_NAME,
-            userId: userId,
-            sessionId: sessionId,
-            newMessage: {
-                parts: [
-                    {
-                        text: `${JSON.stringify(text)}`
-                    }
-                ]
-            },
-            streaming: false
+            input: inputObj,
+            output: outputObj
         };
         try {
-            const response = await fetch("/run", {
+            const response = await fetch("/api/v1/ai/generate", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -98,7 +66,7 @@ const BuildPage = () => {
                 return;
             }
             const data = await response.json();
-            setSpec(tryFormatJson(data[0].actions.stateDelta.jolt_specification.spec));
+            setSpec(tryFormatJson(data.spec));
         } catch (e) {
             setError("Network or server error");
         } finally {
