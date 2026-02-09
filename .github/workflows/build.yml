@@ -54,5 +54,5 @@ jobs:
         run: |
           aws ecs update-service \
             --cluster fluffy-zebra-nlfv4i \
-            --service jolt-transform-web-service-pnqu8vrw \
+            --service jolt-transform-web-service-kpttwbhu \
             --force-new-deployment
