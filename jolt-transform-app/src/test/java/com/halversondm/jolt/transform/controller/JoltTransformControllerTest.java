@@ -2,6 +2,7 @@ package com.halversondm.jolt.transform.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.halversondm.jolt.transform.dto.TransformDto;
+import com.halversondm.jolt.transform.service.TransformService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class JoltTransformControllerTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
+    TransformService transformService = new TransformService();
     JoltTransformController unit;
 
     private List<Object> spec;
@@ -23,7 +25,7 @@ class JoltTransformControllerTest {
 
     @BeforeEach
     void setUp() {
-        unit = new JoltTransformController();
+        unit = new JoltTransformController(transformService);
         try (InputStream is = getClass().getClassLoader().getResourceAsStream("spec.jsonc")) {
             if (is == null) {
                 throw new RuntimeException("spec.jsonc not found in classpath");
