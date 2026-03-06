@@ -5,6 +5,12 @@ import {viteStaticCopy} from 'vite-plugin-static-copy';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+    test: {
+        environment: 'jsdom',
+        globals: true,
+        setupFiles: './src/test/setup.js',
+        css: false,
+    },
     plugins: [
         react(),
         tailwindcss(),
