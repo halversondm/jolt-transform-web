@@ -4,8 +4,8 @@ import com.bazaarvoice.jolt.Chainr;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.halversondm.jolt.transform.dto.TransformDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springaicommunity.mcp.annotation.McpTool;
-import org.springaicommunity.mcp.annotation.McpToolParam;
+import org.springframework.ai.mcp.annotation.McpTool;
+import org.springframework.ai.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

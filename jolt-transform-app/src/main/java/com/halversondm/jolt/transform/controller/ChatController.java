@@ -13,12 +13,14 @@ import org.springframework.ai.converter.MapOutputConverter;
 import org.springframework.ai.google.genai.GoogleGenAiChatModel;
 import org.springframework.ai.google.genai.GoogleGenAiChatOptions;
 import org.springframework.ai.model.tool.ToolCallingManager;
-import org.springframework.retry.support.RetryTemplate;
+import org.springframework.core.retry.RetryPolicy;
+import org.springframework.core.retry.RetryTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Duration;
 import java.util.Map;
 
 @RestController
@@ -61,10 +63,10 @@ public class ChatController {
                 GoogleGenAiChatOptions.builder()
                         .model(GoogleGenAiChatModel.ChatModel.GEMINI_2_5_FLASH)
                         .temperature(0.0)
-                        .build(), ToolCallingManager.builder().build(), RetryTemplate.builder()
-                .maxAttempts(10)
-                .fixedBackoff(1000)
-                .build(), ObservationRegistry.NOOP);
+                        .build(), ToolCallingManager.builder().build(), new RetryTemplate(RetryPolicy.builder()
+                .maxRetries(9)
+                .delay(Duration.ofMillis(1000))
+                .build()), ObservationRegistry.NOOP);
     }
 
     @PostMapping("/generate")
