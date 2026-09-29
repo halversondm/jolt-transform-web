@@ -3,19 +3,10 @@ services:
     image: halversondm/jolt-transform-web:latest
     networks:
       - app-tier
+    volumes:
+      - ~/.aws:/root/.aws:ro
     ports:
       - "9200:8081"
-  jolt-agent:
-    privileged: true
-    image: halversondm/jolt-agent:latest
-    volumes:
-      - ~/.aws:/home/nonroot/.aws:ro
-    networks:
-      - app-tier
-    ports:
-      - "9300:8000"
-    healthcheck:
-      test: curl -f http://localhost:8000/docs || exit 1
 networks:
   app-tier:
     driver: bridge
